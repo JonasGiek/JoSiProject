@@ -18,8 +18,7 @@ import java.io.*;
 			public static void main(String[] args) {
 				
 				File vcfFile = new File("trio.2010_06.ychr.sites.vcf.gz");
-				VCFFileReader reader=new VCFFileReader(vcfFile);
-				IntervalList list = reader.fromVcf(reader);
+				IntervalList list = VCFFileReader.fromVcf(vcfFile);
 			// needs to solve problems with tribble
 			}
 		}
