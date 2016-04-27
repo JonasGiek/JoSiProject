@@ -12,6 +12,9 @@ import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.VCFFileReader;
 import htsjdk.variant.vcf.VCFCodec;
 import htsjdk.variant.variantcontext.VariantContext;
+import htsjdk.variant.variantcontext.writer.VariantContextWriter;
+import htsjdk.variant.variantcontext.writer.VariantContextWriterBuilder;
+import htsjdk.variant.variantcontext.writer.Options;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -35,17 +38,26 @@ public class ReadVCF {
 		scan.close();
 		File vcfFile = new File("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz");
 		VCFFileReader reader = new VCFFileReader(vcfFile);
+		VariantContextWriterBuilder builder = new VariantContextWriterBuilder()
+			  //     .setReferenceDictionary(refDict)
+			       .setOption(Options.INDEX_ON_THE_FLY)
+			       .setBuffer(8192);
+			 
+			   VariantContextWriter writer = builder
+			       .setOutputFile("filtered.vcf")
+			       .build();
 		CloseableIterator<VariantContext> iter = reader.iterator();
-		VariantContext variant = iter.next();
-		int count = 0;
-		while(iter.hasNext()) {
-			count++;
-			iter.next();
+		VariantContext variant = null;
+		
+	    while (iter.hasNext()) {
+			variant = iter.next();
+			if (names.contains(variant.getID())) {
+				writer.add(variant);
+			} 
 		}
-
 		System.out.println(names.get(2500000));
 		System.out.println(variant.getID());
-		System.out.println(count);
+		System.out.println();
 		reader.close();
 		//IntervalList list = VCFFileReader.fromVcf(vcfFile);
 		//System.out.println("kan avkoda");
