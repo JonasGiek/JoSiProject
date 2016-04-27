@@ -8,6 +8,7 @@
 		 */
 	
 import htsjdk.samtools.util.IntervalList;
+import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.VCFFileReader;
 import htsjdk.variant.vcf.VCFCodec;
 import htsjdk.variant.variantcontext.VariantContext;
@@ -22,13 +23,19 @@ import java.io.*;
 				//if(codec.canDecode("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")){
 				File vcfFile = new File("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz");
 				VCFFileReader reader = new VCFFileReader(vcfFile);
+				CloseableIterator<VariantContext> iter = reader.iterator();
+				VariantContext variant = iter.next();
+				System.out.println(variant.getID());
+				reader.close();
 				//IntervalList list = VCFFileReader.fromVcf(vcfFile);
 					//System.out.println("kan avkoda");
 				//
-				for (final VariantContext vc : reader.iterator()) {
+			/*	for (final VariantContext vc : reader.iterator()) {
 	                if (writer != null){
 	                    writer.add(vc);
 	                }
-			}	
+	                
+			}	*/
+				
 			}
 		}
