@@ -17,6 +17,7 @@ import htsjdk.variant.variantcontext.writer.VariantContextWriterBuilder;
 import htsjdk.variant.variantcontext.writer.Options;
 import htsjdk.variant.vcf.VCFHeader;
 import htsjdk.samtools.SAMSequenceDictionary;
+import java.util.HashSet;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ReadVCF {
 		//VCFCodec codec = new VCFCodec();
 		//if(codec.canDecode("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")){
 		Scanner scan = new Scanner(new File("InfiniumOmni2-5Exome-8v1-3_A1_455_LocusReport.txt"));
-		List<String> names = new ArrayList<String>();
+		HashSet<String> names = new HashSet<String>();
 
 		while (scan.hasNext()){
 			scan.nextInt();         // read and skip first column
@@ -58,11 +59,13 @@ public class ReadVCF {
 			variant = iter.next();
 			if (names.contains(variant.getID()) && variant!=null) {
 				writer.add(variant);
+				count++;
 			}
-			count++;
-			System.out.println(count);
+			
+			
 		}
-		System.out.println(names.get(2500000));
+	    System.out.println(count);
+		System.out.println();
 		System.out.println(variant.getID());
 		reader.close();
 		//IntervalList list = VCFFileReader.fromVcf(vcfFile);
