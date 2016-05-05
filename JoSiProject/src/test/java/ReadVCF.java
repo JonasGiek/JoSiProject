@@ -44,8 +44,8 @@ public class ReadVCF {
 		SAMSequenceDictionary dic = VCFFileReader.getSequenceDictionary(vcfFile);
 		VCFHeader header = reader.getFileHeader();
 		VariantContextWriterBuilder builder = new VariantContextWriterBuilder()
-			  //     .setReferenceDictionary(refDict)
-			       .unsetOption(Options.INDEX_ON_THE_FLY);
+			       .setReferenceDictionary(dic)
+			       .setOption(Options.INDEX_ON_THE_FLY);
 			      // .setBuffer(8192);
 			 
 			   VariantContextWriter writer = builder

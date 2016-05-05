@@ -8,6 +8,8 @@ import htsjdk.variant.variantcontext.writer.VariantContextWriterBuilder;
 import htsjdk.variant.variantcontext.writer.Options;
 import htsjdk.variant.vcf.VCFHeader;
 import htsjdk.samtools.SAMSequenceDictionary;
+import htsjdk.variant.variantcontext.GenotypesContext;
+import htsjdk.variant.variantcontext.Genotype;
 import java.util.HashSet;
 import java.io.*;
 import java.util.List;
@@ -24,18 +26,27 @@ class RandomGroups {
 		//VCFCodec codec = new VCFCodec();
 		//if(codec.canDecode("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")){
 
-		File vcfFile = new File("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz");
-		VCFFileReader reader = new VCFFileReader(vcfFile);
+		File vcfFile = new File("filtered.vcf");
+		VCFFileReader reader = new VCFFileReader(vcfFile, false);
 		SAMSequenceDictionary dic = VCFFileReader.getSequenceDictionary(vcfFile);
 		VCFHeader header = reader.getFileHeader();
 		CloseableIterator<VariantContext> iter = reader.iterator();
 		VariantContext variant = iter.next();
-		variant.getSampleNames();
-	
+		//variant = iter.next();
+		//variant = iter.next();
+		for (int j = 0; j < 2500; j++) {
+			Genotype gen = variant.getGenotype(j);
+			System.out.println(gen.toString());
+			//(HG00143	HG00145 har 1 / 0)
+			//variant.getSampleNames();
+			//List L = gen.getAlleles();
+		}
 		
-	    System.out.println(variant.getSampleNamesOrderedByName().size());
-		System.out.println(variant.getSampleNamesOrderedByName().toString());
-		System.out.println(variant.getID());
+		
+	    //System.out.println(variant.getSampleNamesOrderedByName().size());
+		
+		//System.out.println(L.toString());
+		//System.out.println(variant.getID());
 		reader.close();
 		//IntervalList list = VCFFileReader.fromVcf(vcfFile);
 		//System.out.println("kan avkoda");
