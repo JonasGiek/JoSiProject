@@ -34,19 +34,23 @@ class RandomGroups {
 		VariantContext variant = iter.next();
 		//variant = iter.next();
 		//variant = iter.next();
-		for (int j = 0; j < 2500; j++) {
+		/*for (int j = 0; j < 2500; j++) {
 			Genotype gen = variant.getGenotype(j);
 			System.out.println(gen.toString());
+	}*/
 			//(HG00143	HG00145 har 1 / 0)
 			//variant.getSampleNames();
 			//List L = gen.getAlleles();
+		Genotype gen1 = variant.getGenotype(0);
+		Genotype gen2 = variant.getGenotype(43);
+		
+		if (gen1.isHom()) {
+			System.out.println("0 är homo");
 		}
-		
-		
-	    //System.out.println(variant.getSampleNamesOrderedByName().size());
-		
-		//System.out.println(L.toString());
-		//System.out.println(variant.getID());
+		if (gen2.isHet()) {
+			System.out.println("43 är hetero");
+		}
+		System.out.println(gen1.getGenotypeString() + "," +gen2.getGenotypeString());
 		reader.close();
 		//IntervalList list = VCFFileReader.fromVcf(vcfFile);
 		//System.out.println("kan avkoda");
