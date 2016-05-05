@@ -33,8 +33,8 @@ class RandomGroups {
 		variant.getSampleNames();
 	
 		
-	    System.out.println();
-		System.out.println(variant.getSampleNames());
+	    System.out.println(variant.getSampleNamesOrderedByName().size());
+		System.out.println(variant.getSampleNamesOrderedByName().toString());
 		System.out.println(variant.getID());
 		reader.close();
 		//IntervalList list = VCFFileReader.fromVcf(vcfFile);

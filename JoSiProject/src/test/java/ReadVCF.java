@@ -34,9 +34,9 @@ public class ReadVCF {
 		HashSet<String> names = new HashSet<String>();
 
 		while (scan.hasNext()){
-			scan.nextInt();         // read and skip first column
-			names.add(scan.next()); // read and store 'name'
-			scan.nextLine();         // read and skip rest of line
+			scan.nextInt();    
+			names.add(scan.next()); 
+			scan.nextLine();        
 		}
 		scan.close();
 		File vcfFile = new File("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz");
@@ -55,6 +55,8 @@ public class ReadVCF {
 		VariantContext variant = null;
 		writer.writeHeader(header);
 		int count= 0;
+		variant = iter.next();
+		
 	    while (iter.hasNext()) {
 			variant = iter.next();
 			if (names.contains(variant.getID()) && variant!=null) {
