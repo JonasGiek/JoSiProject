@@ -7,10 +7,8 @@
  *attempt at reading a VCF
  */
 
-import htsjdk.samtools.util.IntervalList;
 import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.VCFFileReader;
-import htsjdk.variant.vcf.VCFCodec;
 import htsjdk.variant.variantcontext.VariantContext;
 import htsjdk.variant.variantcontext.writer.VariantContextWriter;
 import htsjdk.variant.variantcontext.writer.VariantContextWriterBuilder;
@@ -19,8 +17,6 @@ import htsjdk.variant.vcf.VCFHeader;
 import htsjdk.samtools.SAMSequenceDictionary;
 import java.util.HashSet;
 import java.io.*;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 public class ReadVCF {
 
@@ -28,8 +24,6 @@ public class ReadVCF {
 	 * @param args
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		//VCFCodec codec = new VCFCodec();
-		//if(codec.canDecode("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")){
 		Scanner scan = new Scanner(new File("InfiniumOmni2-5Exome-8v1-3_A1_455_LocusReport.txt"));
 		HashSet<String> names = new HashSet<String>();
 
@@ -46,8 +40,6 @@ public class ReadVCF {
 		VariantContextWriterBuilder builder = new VariantContextWriterBuilder()
 			       .setReferenceDictionary(dic)
 			       .setOption(Options.INDEX_ON_THE_FLY);
-			      // .setBuffer(8192);
-			 
 			   VariantContextWriter writer = builder
 			       .setOutputFile("filtered.vcf")
 			       .build();
@@ -55,7 +47,7 @@ public class ReadVCF {
 		VariantContext variant = null;
 		writer.writeHeader(header);
 		int count= 0;
-		variant = iter.next();
+		//variant = iter.next();
 		
 	    while (iter.hasNext()) {
 			variant = iter.next();
