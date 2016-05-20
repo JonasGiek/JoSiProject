@@ -47,7 +47,6 @@ public class ReadVCF {
 		VariantContext variant = null;
 		writer.writeHeader(header);
 		int count= 0;
-		//variant = iter.next();
 		
 	    while (iter.hasNext()) {
 			variant = iter.next();
@@ -62,15 +61,6 @@ public class ReadVCF {
 		System.out.println();
 		System.out.println(variant.getID());
 		reader.close();
-		//IntervalList list = VCFFileReader.fromVcf(vcfFile);
-		//System.out.println("kan avkoda");
-		//
-		/*	for (final VariantContext vc : reader.iterator()) {
-	                if (writer != null){
-	                    writer.add(vc);
-	                }
-
-			}	*/
 
 	}
 }
