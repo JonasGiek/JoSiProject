@@ -26,8 +26,6 @@ class RandomGroups {
 	 * @param args
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		//VCFCodec codec = new VCFCodec();
-		//if(codec.canDecode("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")){
 		long seed = System.nanoTime();
 		File vcfFile = new File("filtered.vcf");
 		VCFFileReader reader = new VCFFileReader(vcfFile, false);
@@ -147,8 +145,6 @@ class RandomGroups {
 		 outputStream.close();
 
 		System.out.println(groups.size());
-		//groups.get(0).size()
-		String first = "HG00096";
 		Genotype gen1 = variant.getGenotype(0);
 		Genotype gen2 = variant.getGenotype(1);
 		Genotype gen3 = variant.getGenotype(43);
@@ -162,7 +158,6 @@ class RandomGroups {
 		System.out.println(gen1.getGenotypeString() + "," +gen2.getGenotypeString());
 		System.out.println(seed);
 		reader.close();
-		//IntervalList list = VCFFileReader.fromVcf(vcfFile);
-		//System.out.println("kan avkoda");
+
 	}
 }
