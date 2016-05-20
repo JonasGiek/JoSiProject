@@ -36,31 +36,127 @@ class RandomGroups {
 		CloseableIterator<VariantContext> iter = reader.iterator();
 		VariantContext variant = iter.next();
 		Set<String> names = variant.getSampleNames();
-		ArrayList namelist = new ArrayList(names);
+		ArrayList <String> namelist = new ArrayList(names);
 		int size = namelist.size();
 		int shrinkingSize = namelist.size();
 		int sizeOfGroups = 8;
 		Random rdm = new Random(seed);
+		String seedToName = String.valueOf(seed)+".txt";
 		ArrayList <ArrayList<String>> groups = new ArrayList<ArrayList<String>>();
-		for (int i = 0; i < (size/sizeOfGroups)-1; i++) {
+		for (int i = 0; i < (size/sizeOfGroups); i++) {
 			ArrayList<String> L = new ArrayList<String>();
 			for (int j = 0; j <sizeOfGroups; j++) {
 				int ind = rdm.nextInt(shrinkingSize);
 				String S = namelist.get(ind).toString();
 				L.add(S);
 				namelist.remove(ind);
-				groups.add(L);
 				shrinkingSize--;
 			}
-			
+			groups.add(L);
 		}
+		PrintWriter outputStream=new PrintWriter(seedToName);
+		while (iter.hasNext()) {
+			
+			int count = 0;
+			for (int j = 0; j < groups.size(); j++) {
+				if (variant.getGenotype(0).isHom() && (variant.getGenotype(0).sameGenotype(variant.getGenotype(1))
+						&& variant.getGenotype(0).sameGenotype(variant.getGenotype(2))
+						&& variant.getGenotype(0).sameGenotype(variant.getGenotype(3))
+						|| variant.getGenotype(0).sameGenotype(variant.getGenotype(1))
+								&& variant.getGenotype(0).sameGenotype(variant.getGenotype(4))
+								&& variant.getGenotype(0).sameGenotype(variant.getGenotype(5))
+						|| variant.getGenotype(0).sameGenotype(variant.getGenotype(2))
+								&& variant.getGenotype(0).sameGenotype(variant.getGenotype(4))
+								&& variant.getGenotype(0).sameGenotype(variant.getGenotype(6))))
+					count++;
+				if (variant.getGenotype(1).isHom() && (variant.getGenotype(1).sameGenotype(variant.getGenotype(0))
+						&& variant.getGenotype(1).sameGenotype(variant.getGenotype(2))
+						&& variant.getGenotype(1).sameGenotype(variant.getGenotype(3))
+						|| variant.getGenotype(1).sameGenotype(variant.getGenotype(0))
+								&& variant.getGenotype(1).sameGenotype(variant.getGenotype(4))
+								&& variant.getGenotype(1).sameGenotype(variant.getGenotype(5))
+						|| variant.getGenotype(1).sameGenotype(variant.getGenotype(3))
+								&& variant.getGenotype(1).sameGenotype(variant.getGenotype(5))
+								&& variant.getGenotype(1).sameGenotype(variant.getGenotype(7))))
+					count++;
+				if (variant.getGenotype(2).isHom() && (variant.getGenotype(2).sameGenotype(variant.getGenotype(0))
+						&& variant.getGenotype(2).sameGenotype(variant.getGenotype(1))
+						&& variant.getGenotype(2).sameGenotype(variant.getGenotype(3))
+						|| variant.getGenotype(2).sameGenotype(variant.getGenotype(0))
+								&& variant.getGenotype(2).sameGenotype(variant.getGenotype(4))
+								&& variant.getGenotype(2).sameGenotype(variant.getGenotype(6))
+						|| variant.getGenotype(2).sameGenotype(variant.getGenotype(3))
+								&& variant.getGenotype(2).sameGenotype(variant.getGenotype(6))
+								&& variant.getGenotype(2).sameGenotype(variant.getGenotype(7))))
+					count++;
+				if (variant.getGenotype(3).isHom() && (variant.getGenotype(3).sameGenotype(variant.getGenotype(0))
+						&& variant.getGenotype(3).sameGenotype(variant.getGenotype(1))
+						&& variant.getGenotype(3).sameGenotype(variant.getGenotype(2))
+						|| variant.getGenotype(3).sameGenotype(variant.getGenotype(2))
+								&& variant.getGenotype(3).sameGenotype(variant.getGenotype(6))
+								&& variant.getGenotype(3).sameGenotype(variant.getGenotype(7))
+						|| variant.getGenotype(3).sameGenotype(variant.getGenotype(1))
+								&& variant.getGenotype(3).sameGenotype(variant.getGenotype(5))
+								&& variant.getGenotype(3).sameGenotype(variant.getGenotype(7))))
+					count++;
+				if (variant.getGenotype(4).isHom() && (variant.getGenotype(4).sameGenotype(variant.getGenotype(0))
+						&& variant.getGenotype(4).sameGenotype(variant.getGenotype(1))
+						&& variant.getGenotype(4).sameGenotype(variant.getGenotype(5))
+						|| variant.getGenotype(4).sameGenotype(variant.getGenotype(0))
+								&& variant.getGenotype(4).sameGenotype(variant.getGenotype(2))
+								&& variant.getGenotype(4).sameGenotype(variant.getGenotype(6))
+						|| variant.getGenotype(4).sameGenotype(variant.getGenotype(5))
+								&& variant.getGenotype(4).sameGenotype(variant.getGenotype(6))
+								&& variant.getGenotype(4).sameGenotype(variant.getGenotype(7))))
+					count++;
+				if (variant.getGenotype(5).isHom() && (variant.getGenotype(5).sameGenotype(variant.getGenotype(0))
+						&& variant.getGenotype(5).sameGenotype(variant.getGenotype(1))
+						&& variant.getGenotype(5).sameGenotype(variant.getGenotype(4))
+						|| variant.getGenotype(5).sameGenotype(variant.getGenotype(4))
+								&& variant.getGenotype(5).sameGenotype(variant.getGenotype(6))
+								&& variant.getGenotype(5).sameGenotype(variant.getGenotype(7))
+						|| variant.getGenotype(5).sameGenotype(variant.getGenotype(1))
+								&& variant.getGenotype(5).sameGenotype(variant.getGenotype(3))
+								&& variant.getGenotype(5).sameGenotype(variant.getGenotype(7))))
+					count++;
+				if (variant.getGenotype(6).isHom() && (variant.getGenotype(6).sameGenotype(variant.getGenotype(0))
+						&& variant.getGenotype(6).sameGenotype(variant.getGenotype(2))
+						&& variant.getGenotype(6).sameGenotype(variant.getGenotype(4))
+						|| variant.getGenotype(6).sameGenotype(variant.getGenotype(4))
+								&& variant.getGenotype(6).sameGenotype(variant.getGenotype(5))
+								&& variant.getGenotype(6).sameGenotype(variant.getGenotype(7))
+						|| variant.getGenotype(6).sameGenotype(variant.getGenotype(2))
+								&& variant.getGenotype(6).sameGenotype(variant.getGenotype(3))
+								&& variant.getGenotype(6).sameGenotype(variant.getGenotype(7))))
+					count++;
+				if (variant.getGenotype(7).isHom() && (variant.getGenotype(7).sameGenotype(variant.getGenotype(4))
+						&& variant.getGenotype(7).sameGenotype(variant.getGenotype(5))
+						&& variant.getGenotype(7).sameGenotype(variant.getGenotype(6))
+						|| variant.getGenotype(7).sameGenotype(variant.getGenotype(2))
+								&& variant.getGenotype(7).sameGenotype(variant.getGenotype(3))
+								&& variant.getGenotype(7).sameGenotype(variant.getGenotype(6))
+						|| variant.getGenotype(7).sameGenotype(variant.getGenotype(1))
+								&& variant.getGenotype(7).sameGenotype(variant.getGenotype(3))
+								&& variant.getGenotype(7).sameGenotype(variant.getGenotype(5))))
+					count++;
+			} 
+			variant = iter.next();
+			outputStream.println(count);
+
+		}
+		 outputStream.close();
+
+		System.out.println(groups.size());
+		//groups.get(0).size()
+		String first = "HG00096";
 		Genotype gen1 = variant.getGenotype(0);
-		Genotype gen2 = variant.getGenotype(43);
-		
+		Genotype gen2 = variant.getGenotype(1);
+		Genotype gen3 = variant.getGenotype(43);
+		System.out.println(gen2.sameGenotype(gen1));
 		if (gen1.isHom()) {
 			System.out.println("0 är homo");
 		}
-		if (gen2.isHet()) {
+		if (gen3.isHet()) {
 			System.out.println("43 är hetero");
 		}
 		System.out.println(gen1.getGenotypeString() + "," +gen2.getGenotypeString());
