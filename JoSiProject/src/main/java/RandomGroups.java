@@ -18,8 +18,8 @@ class RandomGroups {
 		File vcfFile = new File("filtered.vcf");
 		VCFFileReader reader = new VCFFileReader(vcfFile, false);
 		CloseableIterator<VariantContext> iter = reader.iterator();
-		VariantContext variant = iter.next();
-		Set<String> names = variant.getSampleNames();
+		VariantContext variantForNames = iter.next();
+		Set<String> names = variantForNames.getSampleNames();
 		ArrayList <String> namelist = new ArrayList(names);
 		int size = namelist.size();
 		int shrinkingSize = namelist.size();
@@ -38,10 +38,15 @@ class RandomGroups {
 			}
 			groups.add(L);
 		}
+		iter.close();
+		CloseableIterator<VariantContext> iter2 = reader.iterator();
+		VariantContext variant = null;
+		int countmarkers=0;
 		PrintWriter outputStream=new PrintWriter(seedToName);
 		//PrintWriter outputStream=new PrintWriter(seedToName+"replica.txt");
 		while (iter.hasNext()) {
-			
+			variant = iter2.next();
+			countmarkers++;
 			int count = 0;
 			for (int j = 0; j < groups.size(); j++) {
 				if (variant.getGenotype(0).isHom() && (variant.getGenotype(0).sameGenotype(variant.getGenotype(1))
@@ -125,13 +130,12 @@ class RandomGroups {
 								&& variant.getGenotype(7).sameGenotype(variant.getGenotype(5))))
 					count++;
 			} 
-			variant = iter.next();
 			outputStream.println(count);
-
 		}
 		 outputStream.close();
 
 		System.out.println(seed);
+		System.out.println(countmarkers);
 		reader.close();
 
 	}

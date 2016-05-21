@@ -26,10 +26,12 @@ public class ReadVCF {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner scan = new Scanner(new File("InfiniumOmni2-5Exome-8v1-3_A1_455_LocusReport.txt"));
 		HashSet<String> names = new HashSet<String>();
-
+		int countfilter= 0;
+		int countgrundfil= 0;
 		while (scan.hasNext()){
 			scan.nextInt();    
-			names.add(scan.next()); 
+			names.add(scan.next());
+			countfilter++;
 			scan.nextLine();        
 		}
 		scan.close();
@@ -54,10 +56,11 @@ public class ReadVCF {
 				writer.add(variant);
 				count++;
 			}
-			
-			
+			countgrundfil++;
 		}
 	    System.out.println(count);
+	    System.out.println(countfilter);
+	    System.out.println(countgrundfil);
 		System.out.println();
 		System.out.println(variant.getID());
 		reader.close();
