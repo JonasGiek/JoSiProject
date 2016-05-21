@@ -44,11 +44,11 @@ class RandomGroups {
 		int countmarkers=0;
 		PrintWriter outputStream=new PrintWriter(seedToName);
 		//PrintWriter outputStream=new PrintWriter(seedToName+"replica.txt");
+		int count;
 		while (iter2.hasNext()) {
 			variant = iter2.next();
 			countmarkers++;
-			int count = 0;
-			variant.getGenotype(groups.get(j).get(7))
+			count=0;
 			for (int j = 0; j < groups.size(); j++) {
 				if (variant.getGenotype(groups.get(j).get(0)).isHom() 
 						&& (variant.getGenotype(groups.get(j).get(0)).sameGenotype(variant.getGenotype(groups.get(j).get(1)))
