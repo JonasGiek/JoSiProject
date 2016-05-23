@@ -1,3 +1,8 @@
+/**
+ * @author Jonas Giek & Simon Stromstedt Hallberg
+ */// 
+package poolinggenomes;
+
 import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.VCFFileReader;
 import htsjdk.variant.variantcontext.VariantContext;
@@ -11,11 +16,12 @@ class RandomGroups {
 
 	/**
 	 * @param args
+	 * The argument is the inputfile that will be evavluated.
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		long seed = System.nanoTime();
 		// long seed = null;
-		File vcfFile = new File("filtered.vcf");
+		File vcfFile = new File(args[0]);
 		VCFFileReader reader = new VCFFileReader(vcfFile, false);
 		CloseableIterator<VariantContext> iter = reader.iterator();
 		VariantContext variantForNames = iter.next();

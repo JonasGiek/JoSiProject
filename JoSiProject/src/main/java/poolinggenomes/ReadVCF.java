@@ -1,11 +1,8 @@
 /**
- * 
- */
-
-/**
- * @author jonasgiek
+ * @author Jonas Giek & Simon Stromstedt Hallberg
  *attempt at reading a VCF
  */
+package poolinggenomes;
 
 import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.VCFFileReader;
@@ -22,9 +19,12 @@ public class ReadVCF {
 
 	/**
 	 * @param args
+	 * The first argument is the filename of marker names that the program will filter the .vcf-file against.
+	 * The second argument is the filename of the .vcf or vcf.gz-file you want to filter.
+	 * The third argument is the name of the output file.   
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner scan = new Scanner(new File("InfiniumOmni2-5Exome-8v1-3_A1_455_LocusReport.txt"));
+		Scanner scan = new Scanner(new File(args[0]));
 		HashSet<String> names = new HashSet<String>();
 		int countfilter= 0;
 		int countgrundfil= 0;
@@ -35,7 +35,7 @@ public class ReadVCF {
 			scan.nextLine();        
 		}
 		scan.close();
-		File vcfFile = new File("ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz");
+		File vcfFile = new File(args[1]);
 		VCFFileReader reader = new VCFFileReader(vcfFile);
 		SAMSequenceDictionary dic = VCFFileReader.getSequenceDictionary(vcfFile);
 		VCFHeader header = reader.getFileHeader();
@@ -43,7 +43,7 @@ public class ReadVCF {
 			       .setReferenceDictionary(dic)
 			       .setOption(Options.INDEX_ON_THE_FLY);
 			   VariantContextWriter writer = builder
-			       .setOutputFile("filtered.vcf")
+			       .setOutputFile(args[3])
 			       .build();
 		CloseableIterator<VariantContext> iter = reader.iterator();
 		VariantContext variant = null;
