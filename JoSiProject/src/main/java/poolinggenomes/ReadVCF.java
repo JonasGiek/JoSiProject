@@ -1,5 +1,5 @@
 /**
- * @author Jonas Giek & Simon Stromstedt Hallberg
+ *@author Jonas Giek & Simon Stromstedt Hallberg
  *attempt at reading a VCF
  */
 package poolinggenomes;
@@ -40,17 +40,17 @@ public class ReadVCF {
 		SAMSequenceDictionary dic = VCFFileReader.getSequenceDictionary(vcfFile);
 		VCFHeader header = reader.getFileHeader();
 		VariantContextWriterBuilder builder = new VariantContextWriterBuilder()
-			       .setReferenceDictionary(dic)
-			       .setOption(Options.INDEX_ON_THE_FLY);
-			   VariantContextWriter writer = builder
-			       .setOutputFile(args[3])
-			       .build();
+				.setReferenceDictionary(dic)
+				.setOption(Options.INDEX_ON_THE_FLY);
+		VariantContextWriter writer = builder
+				.setOutputFile(args[3])
+				.build();
 		CloseableIterator<VariantContext> iter = reader.iterator();
 		VariantContext variant = null;
 		writer.writeHeader(header);
 		int count= 0;
-		
-	    while (iter.hasNext()) {
+
+		while (iter.hasNext()) {
 			variant = iter.next();
 			if (names.contains(variant.getID()) && variant!=null) {
 				writer.add(variant);
@@ -58,9 +58,9 @@ public class ReadVCF {
 			}
 			countgrundfil++;
 		}
-	    System.out.println(count);
-	    System.out.println(countfilter);
-	    System.out.println(countgrundfil);
+		System.out.println(count);
+		System.out.println(countfilter);
+		System.out.println(countgrundfil);
 		System.out.println();
 		System.out.println(variant.getID());
 		reader.close();
